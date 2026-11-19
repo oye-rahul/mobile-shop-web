@@ -1,0 +1,285 @@
+/* ==========================================================================
+   SHREE RAM MOBILE — SCROLLYTELLING & 3 PEAK CHART CARDS
+   ========================================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2e85ff;
+}
+
+/* ==========================================================================
+   LOADING SCREEN
+   ========================================================================== */
+.loader {
+  position: fixed;
+  inset: 0;
+  background-color: #000000;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-top-color: #3b82f6;
+  animation: spin 0.8s linear infinite;
+}
+
+.loader-info {
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-track {
+  width: min(240px, 70vw);
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #1678ff, #4f8ef7);
+  border-radius: 999px;
+  transition: width 0.1s linear;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   FLOATING TOP NAVIGATION
+   ========================================================================== */
+.top-nav {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 8px 18px;
+  background: rgba(8, 16, 26, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(140, 170, 230, 0.18);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.nav-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3b82f6;
+  box-shadow: 0 0 10px #3b82f6;
+}
+
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn {
+  background: none;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-btn.active {
+  background: rgba(46, 133, 255, 0.2);
+  border-color: rgba(46, 133, 255, 0.4);
+  color: #75aafa;
+}
+
+/* ==========================================================================
+   FIXED CANVAS (PHONE SCROLL)
+   ========================================================================== */
+.canvas-fixed-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #000000;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  background-color: #000000;
+}
+
+.scroll-down-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-family: monospace;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.45);
+  animation: pulse-hint 2s infinite ease-in-out;
+}
+
+.hint-arrow {
+  font-size: 1rem;
+  color: #3b82f6;
+}
+
+@keyframes pulse-hint {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.4; }
+  50% { transform: translate(-50%, 6px); opacity: 0.9; }
+}
+
+/* Scroll Track for Phone Explosion */
+.scroll-track {
+  width: 100%;
+  height: 260vh;
+  position: relative;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   PEAK CHART SHOWCASE SECTION (3 CARDS)
+   ========================================================================== */
+.peak-showcase-section {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #08101a;
+  background-image: radial-gradient(circle at 50% 15%, rgba(22, 120, 255, 0.15) 0%, transparent 60%);
+  border-top: 1px solid rgba(140, 170, 230, 0.12);
+  padding: 90px 20px 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.peak-header {
+  text-align: center;
+  max-width: 680px;
+  margin-bottom: 54px;
+}
+
+.peak-tag {
+  display: inline-block;
+  padding: 5px 14px;
+  background: rgba(46, 133, 255, 0.12);
+  border: 1px solid rgba(46, 133, 255, 0.3);
+  border-radius: 999px;
+  font-family: monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: #6496e2;
+  margin-bottom: 14px;
+}
+
+.peak-title {
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.peak-desc {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.6;
+}
+
+.peak-cards-wrapper {
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.peak-card-mount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 1 auto;
+}

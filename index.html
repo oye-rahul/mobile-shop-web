@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shree Ram Mobile — Peak Analytics & Scrollytelling</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loader" class="loader">
+    <div class="spinner"></div>
+    <div class="loader-info">
+      <span id="loader-pct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div id="progress-bar" class="progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Floating Navigation Bar -->
+  <nav class="top-nav">
+    <div class="nav-brand">
+      <span class="nav-dot"></span>
+      <strong>SHREE RAM MOBILE</strong>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-btn active" id="btn-goto-phone">📱 Phone Sequence</button>
+      <button class="nav-btn" id="btn-goto-chart">📈 Peak Chart Demo</button>
+    </div>
+  </nav>
+
+  <!-- Canvas Screen Par Fixed Rahega (Scroll Sequence) -->
+  <div class="canvas-fixed-wrapper" id="canvas-wrapper">
+    <canvas id="canvas"></canvas>
+    <div class="scroll-down-hint">
+      <span>SCROLL DOWN FOR PEAK ANALYTICS</span>
+      <div class="hint-arrow">&darr;</div>
+    </div>
+  </div>
+
+  <!-- Scroll Track for 3D Phone Explosion -->
+  <div class="scroll-track" id="phone-track"></div>
+
+  <!-- ========================================================================
+       PEAK CHART SHOWCASE SECTION (3 CARDS)
+       ======================================================================== -->
+  <section class="peak-showcase-section" id="peak-section">
+    <div class="peak-header">
+      <span class="peak-tag">SHREE RAM MOBILE // VERIFIED METRICS</span>
+      <h2 class="peak-title">Precision Hardware Analytics</h2>
+      <p class="peak-desc">Real-time benchmark curves tracking customer trust, master engineering experience, and device turnaround.</p>
+    </div>
+
+    <!-- Container for the 3 Peak Chart Cards -->
+    <div class="peak-cards-wrapper" id="peak-container">
+      <!-- Card 1: Repair phone - 5k+ -->
+      <div class="peak-card-mount" id="chart-card-1"></div>
+
+      <!-- Card 2: Year of experience - 10+ -->
+      <div class="peak-card-mount" id="chart-card-2"></div>
+
+      <!-- Card 3: Happy customer - 20k+ -->
+      <div class="peak-card-mount" id="chart-card-3"></div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
